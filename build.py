@@ -1,0 +1,11 @@
+import sys, subprocess, platform
+
+actions = {"Linux": {"build": "cmake -S. -Bbuild", "clean": "rm -rf build bin"}, 
+           "Windows": {"build": 'cmake -g "Visual Studio 17 2022"', "clean": ""}}
+
+if len(sys.argv) > 1:
+  actionsForSystem = actions[platform.system()]
+  if sys.argv[1] in actionsForSystem:
+    subprocess.run(actionsForSystem[sys.argv[1]], shell=True)
+  else:
+    print("Command not supported")
