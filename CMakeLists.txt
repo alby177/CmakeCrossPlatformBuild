@@ -3,9 +3,13 @@ project(CMakeTutorial)
 set(CMAKE_CXX_STANDARD 14)
 
 # UNIX, WIN32, WINRT, CYGWIN, APPLE are environment variables as flags set by default system
-if(UNIX)
+# On a mac both APPLE and UNIX are defined
+if(APPLE)
+  message("Finally got a ${CMAKE_SYSTEM_NAME} system")
+  add_definitions(-DCMAKEPROVA="${CMAKE_SYSTEM_NAME}")
+elseif(UNIX)
   message("This is a ${CMAKE_SYSTEM_NAME} system")
-  add_definitions(-DCMAKEPROVA="Linux")
+  add_definitions(-DCMAKEPROVA="${CMAKE_SYSTEM_NAME}")
 elseif(WIN32)
   message("This is a Windows System")
   add_definitions(-DCMAKEPROVA="Windows")
