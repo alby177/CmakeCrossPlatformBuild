@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CMakeTutorial)
 set(CMAKE_CXX_STANDARD 14)
+set(EXECUTABLE_NAME CMakeHello)
 
 # UNIX, WIN32, WINRT, CYGWIN, APPLE are environment variables as flags set by default system
 # On a mac both APPLE and UNIX are defined
@@ -13,6 +14,7 @@ elseif(UNIX)
 elseif(WIN32)
   message("This is a Windows System")
   add_definitions(-DCMAKEPROVA="Windows")
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${EXECUTABLE_NAME})
 endif()
 
 # Disable in-source builds to prevent source tree corruption.
@@ -26,4 +28,4 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-add_executable(CMakeHello src/main.cpp)
+add_executable(${EXECUTABLE_NAME} src/main.cpp)
