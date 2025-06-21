@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
 project(CMakeTutorial)
-set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_NAME CMakeHello)
 set(LIBRARY_NAME GenericLibrary)
 set(SOURCE_DIR src)
 set(BIN_DIR bin)
+
+include(CTest)
 
 # UNIX, WIN32, WINRT, CYGWIN, APPLE are environment variables as flags set by default system
 # On a mac both APPLE and UNIX are defined
@@ -34,7 +35,13 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/${BIN_DIR})
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp)
 
 add_subdirectory(${SOURCE_DIR}/${LIBRARY_NAME})
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${LIBRARY_NAME})
-target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PROJECT_BINARY_DIR}" "${LIBRARY_NAME}")
 
+add_library(tutorial_compiler_flags INTERFACE)
+target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_14)
 
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${LIBRARY_NAME} tutorial_compiler_flags)
+
+enable_testing()
+add_test(NAME Runs COMMAND ${BIN_DIR}/${EXECUTABLE_NAME})
+add_test(NAME StandardUse COMMAND ${EXECUTABLE_NAME})
+set_tests_properties(StandardUse PROPERTIES PASS_REGULAR_EXPRESSION "13")
