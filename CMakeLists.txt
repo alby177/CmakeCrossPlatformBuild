@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(CMakeTutorial)
 set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_NAME CMakeHello)
+set(LIBRARY_NAME GenericLibrary)
+set(SOURCE_DIR src)
 
 # UNIX, WIN32, WINRT, CYGWIN, APPLE are environment variables as flags set by default system
 # On a mac both APPLE and UNIX are defined
@@ -28,4 +30,10 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
-add_executable(${EXECUTABLE_NAME} src/main.cpp)
+add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp)
+
+add_subdirectory(${SOURCE_DIR}/${LIBRARY_NAME})
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${LIBRARY_NAME})
+target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PROJECT_BINARY_DIR}" "${LIBRARY_NAME}")
+
+
