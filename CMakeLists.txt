@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_NAME CMakeHello)
 set(LIBRARY_NAME GenericLibrary)
 set(SOURCE_DIR src)
+set(BIN_DIR bin)
 
 # UNIX, WIN32, WINRT, CYGWIN, APPLE are environment variables as flags set by default system
 # On a mac both APPLE and UNIX are defined
@@ -27,8 +28,8 @@ FATAL: In-source builds are not allowed.
 ")
 endif()
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/${BIN_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/${BIN_DIR})
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp)
 
