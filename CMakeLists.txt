@@ -42,6 +42,6 @@ target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_14)
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${LIBRARY_NAME} tutorial_compiler_flags)
 
 enable_testing()
-add_test(NAME Runs COMMAND ${BIN_DIR}/${EXECUTABLE_NAME})
+add_test(NAME Runs COMMAND ${EXECUTABLE_NAME})
 add_test(NAME StandardUse COMMAND ${EXECUTABLE_NAME})
 set_tests_properties(StandardUse PROPERTIES PASS_REGULAR_EXPRESSION "13")
